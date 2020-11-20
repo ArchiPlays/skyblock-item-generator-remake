@@ -568,35 +568,16 @@ https://discord.gg/n36dbzH
                     document.getElementById('ItemValue_Name').className = 'blue';
                 } else if (value == "3") {
                     rarity = "Rarity.EPIC"
-                    document.getElementById('ItemRarity').innerHTML = "EPIC"
-                    document.getElementById('ItemRarity').className = 'dark_purple';
-                    document.getElementById('ItemValue_Name').className = 'dark_purple';
                 } else if (value == "4") {
                     rarity = "Rarity.LEGENDARY"
-                    document.getElementById('ItemRarity').innerHTML = "LEGENDARY"
-                    document.getElementById('ItemRarity').className = 'gold';
-                    document.getElementById('ItemValue_Name').className = 'gold';
                 } else if (value == "5") {
                     rarity = "Rarity.MYTHIC"
-                    document.getElementById('ItemRarity').innerHTML = "MYTHIC"
-                    document.getElementById('ItemRarity').className = 'light_purple';
-                    document.getElementById('ItemValue_Name').className = 'light_purple';
                 } else if (value == "6") {
                     rarity = "Rarity.SUPREME"
-                    document.getElementById('ItemRarity').innerHTML = "SUPREME"
-                    document.getElementById('ItemRarity').className = 'dark_red';
-                    document.getElementById('ItemValue_Name').className = 'dark_red';
                 } else if (value == "7") {
                     rarity = "Rarity.SPECIAL"
-                    document.getElementById('ItemRarity').innerHTML = "SPECIAL"
-                    console.log("test")
-                    document.getElementById('ItemRarity').className = 'red';
-                    document.getElementById('ItemValue_Name').className = 'red';
                 } else if (value == "8") {
                     rarity = "Rarity.VERY_SPECIAL"
-                    document.getElementById('ItemRarity').innerHTML = "VERY SPECIAL"
-                    document.getElementById('ItemRarity').className = 'red';
-                    document.getElementById('ItemValue_Name').className = 'red';
                 }
             } else if (valueType == "upgraded") {
                 if (value == "1") {
@@ -608,7 +589,6 @@ https://discord.gg/n36dbzH
                 material = value;
             } else if (valueType == "name") {
                 name = value;
-                document.getElementById('ItemValue_Name').innerHTML = value;
             } else if (valueType == "description") {
                 lore = value;
             }
