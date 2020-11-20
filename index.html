@@ -1,0 +1,608 @@
+<html>
+
+<head>
+    <title>- item builder -</title>
+    <script type="text/javascript" src="mc_ids.js"></script>
+    <script type="text/javascript" src="freshcoal_heads.js"></script>
+    <style data-tippy-stylesheet="">
+        .tippy-tooltip[data-animation=fade][data-state=hidden] {
+            opacity: 0
+        }
+
+        .tippy-iOS {
+            cursor: pointer !important;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        .tippy-popper {
+            pointer-events: none;
+            max-width: calc(100vw - 10px);
+            transition-timing-function: cubic-bezier(.165, .84, .44, 1);
+            transition-property: transform
+        }
+
+        .tippy-tooltip {
+            position: relative;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.4;
+            background-color: #333;
+            transition-property: visibility, opacity, transform;
+            outline: 0
+        }
+
+        .tippy-tooltip[data-placement^=top]>.tippy-arrow {
+            border-width: 8px 8px 0;
+            border-top-color: #333;
+            margin: 0 3px;
+            transform-origin: 50% 0;
+            bottom: -7px
+        }
+
+        .tippy-tooltip[data-placement^=bottom]>.tippy-arrow {
+            border-width: 0 8px 8px;
+            border-bottom-color: #333;
+            margin: 0 3px;
+            transform-origin: 50% 7px;
+            top: -7px
+        }
+
+        .tippy-tooltip[data-placement^=left]>.tippy-arrow {
+            border-width: 8px 0 8px 8px;
+            border-left-color: #333;
+            margin: 3px 0;
+            transform-origin: 0 50%;
+            right: -7px
+        }
+
+        .tippy-tooltip[data-placement^=right]>.tippy-arrow {
+            border-width: 8px 8px 8px 0;
+            border-right-color: #333;
+            margin: 3px 0;
+            transform-origin: 7px 50%;
+            left: -7px
+        }
+
+        .tippy-tooltip[data-interactive][data-state=visible] {
+            pointer-events: auto
+        }
+
+        .tippy-tooltip[data-inertia][data-state=visible] {
+            transition-timing-function: cubic-bezier(.54, 1.5, .38, 1.11)
+        }
+
+        .tippy-arrow {
+            position: absolute;
+            border-color: transparent;
+            border-style: solid
+        }
+
+        .tippy-content {
+            padding: 5px 9px
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/popper.js@1"></script>
+    <script src="https://unpkg.com/tippy.js@5"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"
+        integrity="sha256-QHdJObhDO++VITP6S4tMlDHRWMaUOk+s/xWIRgF/YY0=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Minecraft';
+            src: url(Minecraft.otf);
+        }
+
+        * {
+            font-family: 'Minecraft';
+            user-select: none;
+            font-size: 18px;
+        }
+
+        .imgbord {
+            border: 4px solid transparent;
+            border-image: url('https://i.imgur.com/LGlfFuU.png') 4 fill round;
+            -moz-border-image: url('https://i.imgur.com/LGlfFuU.png') 4 fill round;
+            -webkit-border-image: url('https://i.imgur.com/LGlfFuU.png') 4 fill round;
+            color: white;
+            padding: 6px;
+        }
+
+        /* minecraft colors */
+        .base {
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.12);
+        }
+
+        .dark_red {
+            color: rgb(190, 0, 0);
+            text-shadow: 2px 2px 0px rgba(190, 0, 0, 0.12);
+        }
+
+        .red {
+            color: rgba(254, 63, 63, 1);
+            text-shadow: 2px 2px 0px rgba(254, 63, 63, 0.12);
+        }
+
+        .gold {
+            color: rgb(255, 170, 0);
+            text-shadow: 2px 2px 0px rgba(255, 228, 0, 0.12);
+        }
+
+        .yellow {
+            color: rgb(254, 254, 63);
+            text-shadow: 2px 2px 0px rgba(254, 254, 63, 0.12);
+        }
+
+        .dark_green {
+            color: rgb(0, 190, 0);
+            text-shadow: 2px 2px 0px rgba(0, 190, 0, 0.12);
+        }
+
+        .green {
+            color: rgb(63, 254, 63);
+            text-shadow: 2px 2px 0px rgba(63, 254, 63, 0.12);
+        }
+
+        .aqua {
+            color: rgb(63, 254, 254);
+            text-shadow: 2px 2px 0px rgba(63, 254, 254, 0.12);
+        }
+
+        .dark_aqua {
+            color: rgb(0, 190, 190);
+            text-shadow: 2px 2px 0px rgba(0, 190, 190, 0.12);
+        }
+
+        .dark_blue {
+            color: rgb(0, 0, 190);
+            text-shadow: 2px 2px 0px rgba(0, 0, 190, 0.12);
+        }
+
+        .blue {
+            color: rgb(63, 63, 254);
+            text-shadow: 2px 2px 0px rgba(63, 63, 254, 0.12);
+        }
+
+        .light_purple {
+            color: rgb(254, 63, 254);
+            text-shadow: 2px 2px 0px rgba(254, 63, 254, 0.12);
+        }
+
+        .dark_purple {
+            color: rgb(190, 0, 190);
+            text-shadow: 2px 2px 0px rgba(190, 0, 190, 0.12);
+        }
+
+        .white {
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.12);
+        }
+
+        .gray {
+            color: rgb(170, 170, 170);
+            text-shadow: 2px 2px 0px rgba(170, 170, 170, 0.12);
+        }
+
+        .darkgray {
+            color: rgb(63, 63, 63);
+            text-shadow: 2px 2px 0px rgba(63, 63, 63, 0.12);
+        }
+
+        .black {
+            color: rgb(0, 0, 0);
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.12);
+        }
+
+        .button {
+            height: 40px;
+            outline: 2px solid black;
+            position: relative;
+            margin: 1px;
+            display: inline-block;
+            background-image: url('button_center.png');
+            background-repeat: repeat;
+            padding: 0;
+            padding-left: 5px;
+            padding-right: 5px;
+            font-family: Minecraft;
+            text-align: center;
+            color: white;
+            text-shadow: 3px 3px #4C4C4C;
+            border-bottom: 4px solid #565656;
+            border-right: 2px solid #565656;
+            border-left: 2px solid #AAA;
+            border-top: 2px solid #AAA;
+            box-sizing: border-box;
+            font-size: 18px;
+            user-select: none;
+            margin: 6px;
+
+        }
+
+        .button:focus {
+            outline: 2px solid black;
+        }
+
+        .button span {
+            position: relative;
+            line-height: 40px;
+            bottom: 3px;
+        }
+
+        .button:hover {
+            border-bottom: 4px solid #59639A;
+            border-right: 2px solid #59639A;
+            border-left: 2px solid #BDC6FF;
+            border-top: 2px solid #BDC6FF;
+            background-image: url('button_active_center.png');
+            color: #FFFFA0;
+        }
+
+        .button:disabled {
+            -webkit-filter: grayscale(100%);
+            color: rgb(170, 170, 170);
+            cursor: not-allowed;
+            filter: grayscale(100%);
+        }
+
+        .button:disabled:hover {
+            -webkit-filter: grayscale(100%);
+            color: rgb(170, 170, 170);
+            filter: grayscale(100%);
+        }
+
+        .item_img {
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px;
+            height: 64px;
+            image-rendering: optimizeSpeed;
+            /* STOP SMOOTHING, GIVE ME SPEED  */
+            image-rendering: -moz-crisp-edges;
+            /* Firefox                        */
+            image-rendering: -o-crisp-edges;
+            /* Opera                          */
+            image-rendering: -webkit-optimize-contrast;
+            /* Chrome (and eventually Safari) */
+            image-rendering: pixelated;
+            /* Chrome */
+            image-rendering: optimize-contrast;
+            /* CSS3 Proposed                  */
+            -ms-interpolation-mode: nearest-neighbor;
+            /* IE8+                           */
+        }
+
+        .item_img2 {
+            width: 32px;
+            height: 32px;
+            image-rendering: optimizeSpeed;
+            /* STOP SMOOTHING, GIVE ME SPEED  */
+            image-rendering: -moz-crisp-edges;
+            /* Firefox                        */
+            image-rendering: -o-crisp-edges;
+            /* Opera                          */
+            image-rendering: -webkit-optimize-contrast;
+            /* Chrome (and eventually Safari) */
+            image-rendering: pixelated;
+            /* Chrome */
+            image-rendering: optimize-contrast;
+            /* CSS3 Proposed                  */
+            -ms-interpolation-mode: nearest-neighbor;
+            /* IE8+                           */
+        }
+
+        /*
+
+LMNYX'S HEAVEN
+https://discord.gg/n36dbzH
+
+*/
+        .item_holder {
+            float: left;
+            width: 18%;
+            background: url(itembg.png) repeat;
+            background-size: 64px;
+            image-rendering: optimizeSpeed;
+            /* STOP SMOOTHING, GIVE ME SPEED  */
+            image-rendering: -moz-crisp-edges;
+            /* Firefox                        */
+            image-rendering: -o-crisp-edges;
+            /* Opera                          */
+            image-rendering: -webkit-optimize-contrast;
+            /* Chrome (and eventually Safari) */
+            image-rendering: pixelated;
+            /* Chrome */
+            image-rendering: optimize-contrast;
+            /* CSS3 Proposed                  */
+            -ms-interpolation-mode: nearest-neighbor;
+            border-radius: 12px;
+        }
+
+        .mctooltip {
+            position: relative;
+            width: 100%;
+            padding: 12px;
+            height: auto;
+            border-radius: 12px;
+            background: url(itembg.png) repeat;
+            background-size: 64px;
+            image-rendering: optimizeSpeed;
+            /* STOP SMOOTHING, GIVE ME SPEED  */
+            image-rendering: -moz-crisp-edges;
+            /* Firefox                        */
+            image-rendering: -o-crisp-edges;
+            /* Opera                          */
+            image-rendering: -webkit-optimize-contrast;
+            /* Chrome (and eventually Safari) */
+            image-rendering: pixelated;
+            /* Chrome */
+            image-rendering: optimize-contrast;
+            /* CSS3 Proposed                  */
+            -ms-interpolation-mode: nearest-neighbor;
+            color: white;
+            margin: 12px;
+        }
+
+        .mcin {
+            background-color: black;
+            border: solid 2px rgba(158, 158, 158, 1);
+            padding: 5px 10px 5px 10px;
+            color: white;
+            width: 400px;
+            margin: 3px;
+        }
+
+        .mcin:focus {
+            outline: none;
+        }
+
+        .mpnc {
+            display: inline-block;
+            width: 177px;
+        }
+
+        #SelectIco {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #222;
+            border-radius: 7px;
+            border: solid 1px #888;
+            overflow: auto;
+            width: 40%;
+            height: 40%;
+            text-align: center;
+        }
+
+        .itemselector {}
+
+        .itemselector:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .itemselector2:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .blured> :not(#SelectIco):not(.tippy-popper) {
+            filter: blur(5px);
+            pointer-events: none;
+        }
+
+        .block {
+            display: block;
+            white-space: pre-wrap;
+            /* css-3 */
+            white-space: -moz-pre-wrap;
+            /* Mozilla, since 1999 */
+            white-space: -pre-wrap;
+            /* Opera 4-6 */
+            white-space: -o-pre-wrap;
+            /* Opera 7 */
+            word-wrap: break-word;
+            /* Internet Explorer 5.5+ */
+            width: 100%;
+            margin-top: -8px;
+        }
+
+        #ItemRarity {
+            font-weight: bold;
+        }
+
+        #ErrorFlash {
+            display: block;
+            position: fixed;
+            top: 0;
+            right: 0;
+        }
+
+        .normal_br {
+            margin-top: -8px;
+        }
+
+        .topnav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            font-family: 'Minecraft';
+        }
+
+        .topnav a:hover {
+            background-color: #cf71d1;
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: #e689e8;
+            color: white;
+        }
+    </style>
+    <style type="text/css"></style>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.984.0" data-gr-ext-installed="">
+    <div style="margin: 42px auto; width: 75%;">
+        <h3>Item Builder <span class="gray" id="ResultNotice">Result at the bottom</span></h3>
+        <hr>
+        <div id="UserControls" data-children-count="18">
+
+            <div class="mctooltip white">
+                <center class="gray">You can use <span class="red">&amp;cMinecraft</span> color codes and /n (new line)!</center>
+                <center><span class="gray">I'm currently testing this generator, so be sure to report any bugs!</span>
+                    <span class="yellow">(0.1.5-20/11/20)</span></center>
+            </div>
+            <div class="mpnc">Material:</div>
+            <input type="text" onkeyup="UpdateValue('material', this.value);" maxlength="128" class="mcin gray"
+                placeholder="ACACIA_DOOR"><br>
+            <div class="mpnc">Item Name:</div>
+            <input type="text" onkeyup="UpdateValue('name', this.value);" maxlength="128" class="mcin gray"
+                placeholder="Golden Carrot"><br>
+            <div class="mpnc">Item Lore: </div>
+            <input type="text" onkeyup="UpdateValue('description', this.value);" minlength="0" maxlength="100000"
+                class="mcin gray" placeholder="The thing under the item name."><br>
+            <div class="mpnc">Rarity:</div>
+            <select type="text" onchange="UpdateValue('Rarity', this.value);" min="0" id="RaritySelector"
+                maxlength="100000" class="mcin gray" placeholder="0" value="0">
+                <option value="0">Common</option>
+                <option value="1" class="green">Uncommon</option>
+                <option value="2" class="blue">Rare</option>
+                <option value="3" class="dark_purple">Epic</option>
+                <option value="4" class="gold">Legendary</option>
+                <option value="5" class="light_purple">Mythic</option>
+                <option value="6" class="dark_red">Supreme</option>
+                <option value="7" class="red">Special</option>
+                <option value="8" class="red">Very Special</option>
+            </select><br>
+            <div class="mpnc">Recombobulated?:</div>
+            <select type="text" onchange="UpdateValue('upgraded', this.value);" min="0" id="UpgradedSelector"
+                maxlength="100000" class="mcin gray" placeholder="0" value="0">
+                <option value="1" class="green">Yes</option>
+                <option value="0" class="red">No</option>
+            </select><br>
+            <br>
+            <br>
+
+        </div>
+        <br>
+        <br>
+        <p>
+        </p>
+        <center>
+
+
+
+            <br>
+            <span class="black"> made with love by lmnyx - modified by ArchiTheCoder <span class="red">&lt;3</span></span><br>
+
+        </center>
+        <p></p>
+        <br>
+
+    </div>
+
+    <div id="ErrorFlash" style="display: none;"><b class="red">Error!</b> Check console!</div>
+    <script type="text/javascript">
+        let material;
+        let displayname;
+        let lore;
+        let rarity;
+        let upgraded;
+
+        function UpdateValue(valueType, value) {
+            if (valueType == "Rarity") {
+                if (value == "0") {
+                    rarity = "Rarity.COMMON"
+                    document.getElementById('ItemRarity').innerHTML = "COMMON"
+                    document.getElementById('ItemRarity').className = 'white';
+                    document.getElementById('ItemValue_Name').className = 'white';
+                } else if (value == "1") {
+                    rarity = "Rarity.UNCOMMON"
+                    document.getElementById('ItemRarity').innerHTML = "UNCOMMON"
+                    document.getElementById('ItemRarity').className = 'green';
+                    document.getElementById('ItemValue_Name').className = 'green';
+                } else if (value == "2") {
+                    rarity = "Rarity.RARE"
+                    document.getElementById('ItemRarity').innerHTML = "RARE"
+                    document.getElementById('ItemRarity').className = 'blue';
+                    document.getElementById('ItemValue_Name').className = 'blue';
+                } else if (value == "3") {
+                    rarity = "Rarity.EPIC"
+                    document.getElementById('ItemRarity').innerHTML = "EPIC"
+                    document.getElementById('ItemRarity').className = 'dark_purple';
+                    document.getElementById('ItemValue_Name').className = 'dark_purple';
+                } else if (value == "4") {
+                    rarity = "Rarity.LEGENDARY"
+                    document.getElementById('ItemRarity').innerHTML = "LEGENDARY"
+                    document.getElementById('ItemRarity').className = 'gold';
+                    document.getElementById('ItemValue_Name').className = 'gold';
+                } else if (value == "5") {
+                    rarity = "Rarity.MYTHIC"
+                    document.getElementById('ItemRarity').innerHTML = "MYTHIC"
+                    document.getElementById('ItemRarity').className = 'light_purple';
+                    document.getElementById('ItemValue_Name').className = 'light_purple';
+                } else if (value == "6") {
+                    rarity = "Rarity.SUPREME"
+                    document.getElementById('ItemRarity').innerHTML = "SUPREME"
+                    document.getElementById('ItemRarity').className = 'dark_red';
+                    document.getElementById('ItemValue_Name').className = 'dark_red';
+                } else if (value == "7") {
+                    rarity = "Rarity.SPECIAL"
+                    document.getElementById('ItemRarity').innerHTML = "SPECIAL"
+                    console.log("test")
+                    document.getElementById('ItemRarity').className = 'red';
+                    document.getElementById('ItemValue_Name').className = 'red';
+                } else if (value == "8") {
+                    rarity = "Rarity.VERY_SPECIAL"
+                    document.getElementById('ItemRarity').innerHTML = "VERY SPECIAL"
+                    document.getElementById('ItemRarity').className = 'red';
+                    document.getElementById('ItemValue_Name').className = 'red';
+                }
+            } else if (valueType == "upgraded") {
+                if (value == "1") {
+                    upgraded = "true"
+                } else {
+                    upgraded = "false"
+                }
+            } else if (valueType == "material") {
+                material = value;
+            } else if (valueType == "name") {
+                name = value;
+                document.getElementById('ItemValue_Name').innerHTML = value;
+            } else if (valueType == "description") {
+                lore += value;
+                let newSpan = document.createElement('span')
+                newSpan.innerHTML = value;
+                document.getElementById('ItemValue_Desc').appendChild(newSpan);
+            }
+        }
+    </script>
+</body>
+
+</html>
