@@ -474,7 +474,8 @@ https://discord.gg/n36dbzH
         <div id="UserControls" data-children-count="18">
 
             <div class="mctooltip white">
-                <center class="gray">You can use <span class="red">&amp;cMinecraft</span> color codes and /n (new line)!</center>
+                <center class="gray">You can use <span class="red">&amp;cMinecraft</span> color codes and /n (new line)!
+                </center>
                 <center><span class="gray">I'm currently testing this generator, so be sure to report any bugs!</span>
                     <span class="yellow">(0.1.5-20/11/20)</span></center>
             </div>
@@ -503,8 +504,8 @@ https://discord.gg/n36dbzH
             <div class="mpnc">Recombobulated?:</div>
             <select type="text" onchange="UpdateValue('upgraded', this.value);" min="0" id="UpgradedSelector"
                 maxlength="100000" class="mcin gray" placeholder="0" value="0">
-                <option value="1" class="green">Yes</option>
                 <option value="0" class="red">No</option>
+                <option value="1" class="green">Yes</option>
             </select><br>
             <br>
             <br>
@@ -515,11 +516,12 @@ https://discord.gg/n36dbzH
         <p>
         </p>
         <center>
-
-
+            <button onclick="copyCode()">Copy Code - send to Archi on discord</button>
+            <br>
 
             <br>
-            <span class="black"> made with love by lmnyx - modified by ArchiTheCoder <span class="red">&lt;3</span></span><br>
+            <span class="black"> made with love by lmnyx - modified by ArchiTheCoder <span
+                    class="red">&lt;3</span></span><br>
 
         </center>
         <p></p>
@@ -533,7 +535,19 @@ https://discord.gg/n36dbzH
         let displayname;
         let lore;
         let rarity;
-        let upgraded;
+        let name;
+        let upgraded = false;
+
+        function copyCode() {
+            let code = "manager.generateNewItem(Material." + material + ", \"" + name + "\", \"" + lore + "\", " +
+               rarity  + ", " + upgraded + ")".replace("&", "§")
+            const el = document.createElement('textarea');
+            el.value = code;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+        }
 
         function UpdateValue(valueType, value) {
             if (valueType == "Rarity") {
@@ -596,10 +610,7 @@ https://discord.gg/n36dbzH
                 name = value;
                 document.getElementById('ItemValue_Name').innerHTML = value;
             } else if (valueType == "description") {
-                lore += value;
-                let newSpan = document.createElement('span')
-                newSpan.innerHTML = value;
-                document.getElementById('ItemValue_Desc').appendChild(newSpan);
+                lore = value;
             }
         }
     </script>
