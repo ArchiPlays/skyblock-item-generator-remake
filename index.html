@@ -544,6 +544,9 @@ https://discord.gg/n36dbzH
         let upgraded = false;
 
         function copyCode() {
+            if (!lore.startsWith("&") || lore.startsWith("§")) {
+                lore = "§7" + lore;
+            } 
             let code = "manager.generateNewItem(Material." + material + ", \"" + name + "\", \"" + lore + "\", " +
                rarity  + ", " + upgraded + ")"
             let modified = code.replace("&", "§");
